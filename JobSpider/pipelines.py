@@ -70,16 +70,13 @@ class JobSpiderMysqlPipeline(object):
                 with self.connection.cursor() as cursor:
                     sql_select = """select * from `%s` where `%s`='%s'""" %(table_name,primary_key,id)
                     count_rows = cursor.execute(sql_select)
-                    print "============ cursor.rowcount: %d ================" %(count_rows)
                     if count_rows > 0:
                         print "============= haha this row data is already in database. =============="
                     else:
                         fields_sql = "`" + "`, `".join(fields) + "`"
-                        values_sql = ""
-                        i = 0
+                        values_sql = ""; i = 0
                         for attr in fields:
-                            i += 1
-                            sp = ", "
+                            i += 1; sp = ", "
                             if i == 1:
                                 sp = ""
                             if attr in int_attrs:
